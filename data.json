@@ -1,0 +1,156 @@
+{
+  "courses": [
+    {
+      "id": "c1",
+      "title": "Computer Vision",
+      "description": "Learn how computers gain high-level understanding from digital images or videos, covering image processing and feature extraction.",
+      "difficulty": "Advanced",
+      "lessons": [
+        {
+          "id": "l1",
+          "title": "Introduction to Computer Vision",
+          "description": "Understand the history, goals, and basic applications of computer vision.",
+          "videoUrl": "https://www.youtube.com/watch?v=OcycT1JwsyQ"
+        },
+        {
+          "id": "l2",
+          "title": "Image Processing Basics",
+          "description": "Learn about pixels, color spaces, and basic filtering techniques.",
+          "videoUrl": "https://www.youtube.com/watch?v=2iEAJVwtAhI"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "q1",
+          "lessonId": "l2",
+          "question": "What is the primary building block of a digital image?",
+          "options": ["Vector", "Node", "Pixel", "Polygon"],
+          "correctAnswer": "Pixel"
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Database Management System",
+      "description": "Master the fundamentals of storing, retrieving, and managing data using relational databases.",
+      "difficulty": "Intermediate",
+      "lessons": [
+        {
+          "id": "l3",
+          "title": "Entity-Relationship Models",
+          "description": "Learn how to design database schemas using ER diagrams.",
+          "videoUrl": "https://www.youtube.com/watch?v=QpdhBUYk7Kk"
+        },
+        {
+          "id": "l4",
+          "title": "SQL Basics",
+          "description": "Write basic CRUD operations using Structured Query Language.",
+          "videoUrl": "https://www.youtube.com/watch?v=HXV3zeRE284"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "q2",
+          "lessonId": "l4",
+          "question": "Which SQL command is used to extract data from a database?",
+          "options": ["GET", "EXTRACT", "PULL", "SELECT"],
+          "correctAnswer": "SELECT"
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Natural Language Processing",
+      "description": "Explore the intersection of computer science and linguistics to program computers to process human language.",
+      "difficulty": "Advanced",
+      "lessons": [
+        {
+          "id": "l5",
+          "title": "Text Preprocessing & Tokenization",
+          "description": "Learn how to clean text data and break it down into manageable tokens.",
+          "videoUrl": "https://www.youtube.com/watch?v=fNxaJsNG3-s"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "q3",
+          "lessonId": "l5",
+          "question": "What is the process of breaking text into smaller pieces (like words or sentences) called?",
+          "options": ["Stemming", "Lemmatization", "Tokenization", "Parsing"],
+          "correctAnswer": "Tokenization"
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Object Oriented Programming",
+      "description": "Understand software design around data, or objects, rather than functions and logic.",
+      "difficulty": "Beginner",
+      "lessons": [
+        {
+          "id": "l6",
+          "title": "Classes and Objects",
+          "description": "Define blueprints (classes) and instantiate them (objects).",
+          "videoUrl": "https://www.youtube.com/watch?v=pTB0EiLXUC8"
+        },
+        {
+          "id": "l7",
+          "title": "Inheritance and Polymorphism",
+          "description": "Learn how objects can take on multiple forms and inherit traits from parent classes.",
+          "videoUrl": "https://www.youtube.com/watch?v=hxG9cEMySCE"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "q4",
+          "lessonId": "l7",
+          "question": "Which OOP principle restricts direct access to some of an object's components?",
+          "options": ["Polymorphism", "Encapsulation", "Inheritance", "Abstraction"],
+          "correctAnswer": "Encapsulation"
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Web Tech Workshop",
+      "description": "A comprehensive bootcamp covering the full stack of web development technologies: HTML, CSS, JS, and ExpressJS.",
+      "difficulty": "Intermediate",
+      "lessons": [
+        {
+          "id": "l8",
+          "title": "Structure and Styling (HTML & CSS)",
+          "description": "Build the semantic skeleton of a webpage and style it with modern CSS.",
+          "videoUrl": "https://www.youtube.com/watch?v=mU6anWqZJcc"
+        },
+        {
+          "id": "l9",
+          "title": "Interactivity with JavaScript",
+          "description": "Manipulate the DOM and handle user events using vanilla JavaScript.",
+          "videoUrl": "https://www.youtube.com/watch?v=W6NZfCO5SIk"
+        },
+        {
+          "id": "l10",
+          "title": "Backend APIs with ExpressJS",
+          "description": "Set up a server, define routes, and handle HTTP requests using ExpressJS.",
+          "videoUrl": "https://www.youtube.com/watch?v=L72fhGm1tfE"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "q5",
+          "lessonId": "l8",
+          "question": "Which HTML tag is used to link an external CSS file?",
+          "options": ["<style>", "<script>", "<link>", "<css>"],
+          "correctAnswer": "<link>"
+        },
+        {
+          "id": "q6",
+          "lessonId": "l10",
+          "question": "What is ExpressJS primarily used for?",
+          "options": ["Styling web pages", "Building Node.js web applications and APIs", "Managing relational databases", "Running React applications"],
+          "correctAnswer": "Building Node.js web applications and APIs"
+        }
+      ]
+    }
+  ]
+}
