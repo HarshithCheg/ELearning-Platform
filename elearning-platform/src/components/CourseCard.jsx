@@ -9,7 +9,7 @@ export default function CourseCard({course}){
             <p>{course.description}</p>
 
             <Link to={'/course/${course.id}'} style={{textDecoration: 'none'}}>
-                <button className='route-btn'>View Course</button>
+                <button className='btn-primary'>View Course</button>
             </Link>
         </div>
     );
