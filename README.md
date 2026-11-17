@@ -25,3 +25,12 @@ Tools and Technologies
 
 Difficulty Level
 Advanced
+
+----------------------------------------------------------------
+How to Run 
+
+- Pull Using GitHub Desktop (easier) or Terminal
+- npm install
+- npm run dev 
+
+It will give a localhost link. Copy that and paste it in some chromium-based browser.
