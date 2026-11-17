@@ -24,6 +24,13 @@ export function LearningProvider({children}) {
     const [completedLessonIds, setCompletedLessonIds] = useState(
         () => readSavedList('completedLessonIds')
     );
+    const [quizResults, setQuizResults] = useState(
+        () => readSavedList('quizResults').filter(result => (
+            typeof result.quizId === 'string' &&
+            typeof result.isCorrect === 'boolean' &&
+            typeof result.selectedAnswer === 'string'
+        ))
+    );
 
     useEffect(() => {
         try {
@@ -41,6 +48,14 @@ export function LearningProvider({children}) {
         }
     }, [completedLessonIds]);
 
+    useEffect(() => {
+        try {
+            localStorage.setItem('quizResults', JSON.stringify(quizResults));
+        } catch (error) {
+            console.error('Could not save quiz results:', error);
+        }
+    }, [quizResults]);
+
     function enrollInCourse(courseId) {
         setEnrolledCourseIds(currentIds => (
             currentIds.includes(courseId) ? currentIds : [...currentIds, courseId]
@@ -53,12 +68,21 @@ export function LearningProvider({children}) {
         ));
     }
 
+    function saveQuizResult(quizId, selectedAnswer, isCorrect) {
+        setQuizResults(currentResults => [
+            ...currentResults.filter(result => result.quizId !== quizId),
+            {quizId, selectedAnswer, isCorrect}
+        ]);
+    }
+
     return (
         <LearningContext.Provider value={{
             enrolledCourseIds,
             completedLessonIds,
+            quizResults,
             enrollInCourse,
-            completeLesson
+            completeLesson,
+            saveQuizResult
         }}>
             {children}
         </LearningContext.Provider>

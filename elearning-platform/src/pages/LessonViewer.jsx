@@ -20,7 +20,7 @@ function LessonContent({courseID, lessonID}) {
     const [playerAttempt, setPlayerAttempt] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState('');
     const [quizSubmitted, setQuizSubmitted] = useState(false);
-    const {completedLessonIds, completeLesson} = useLearning();
+    const {completedLessonIds, completeLesson, saveQuizResult} = useLearning();
     const isCompleted = completedLessonIds.includes(lessonID);
 
     useEffect(() => {
@@ -63,6 +63,7 @@ function LessonContent({courseID, lessonID}) {
     function submitQuiz(event) {
         event.preventDefault();
         if (selectedAnswer) {
+            saveQuizResult(quiz.id, selectedAnswer, selectedAnswer === quiz.correctAnswer);
             setQuizSubmitted(true);
         }
     }
