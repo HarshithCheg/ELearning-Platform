@@ -23,11 +23,22 @@
   color: var(--text-main);
 }
 
+.course-card .course-meta {
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
 .course-card p {
   color: var(--text-muted);
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
   flex-grow: 1;
+}
+
+.course-card p.course-meta {
+  flex-grow: 0;
 }
 
 .badge {
@@ -44,6 +55,7 @@
 }
 
 .btn-primary {
+  display: block;
   background-color: var(--primary-color);
   color: white;
   padding: 10px 15px;
@@ -55,10 +67,16 @@
   width: 100%;
   text-align: center;
   transition: background-color 0.2s;
+  text-decoration: none;
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
   background-color: var(--primary-hover);
+}
+
+.btn-primary:disabled {
+  cursor: default;
+  opacity: 0.7;
 }
 
 /* --- ProgressBar Styles --- */
@@ -81,4 +99,12 @@
   font-size: 0.85rem;
   color: var(--text-muted);
   font-weight: 500;
+}
+
+.progress-summary {
+  margin: 1rem 0;
+}
+
+.progress-summary .progress-container {
+  margin: 0.5rem 0;
 }

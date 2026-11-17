@@ -3,152 +3,418 @@
     {
       "id": "c1",
       "title": "Computer Vision",
-      "description": "Learn how computers gain high-level understanding from digital images or videos, covering image processing and feature extraction.",
+      "category": "Artificial Intelligence",
+      "description": "Explore how computers interpret images and video. Start with the foundations of visual data, then learn how image processing and filters prepare images for computer vision tasks.",
       "difficulty": "Advanced",
+      "learningOutcomes": [
+        "Explain how computers represent and interpret images",
+        "Describe pixels, image properties, and common processing steps",
+        "Understand how filters and convolution help analyze visual data"
+      ],
       "lessons": [
         {
           "id": "l1",
           "title": "Introduction to Computer Vision",
-          "description": "Understand the history, goals, and basic applications of computer vision.",
-          "videoUrl": "https://www.youtube.com/watch?v=OcycT1JwsyQ"
+          "description": "Get to know computer vision, how it differs from human vision, and where it is used in everyday technology.",
+          "videoUrl": "https://www.youtube.com/watch?v=lgbKpn7q40M"
         },
         {
           "id": "l2",
           "title": "Image Processing Basics",
-          "description": "Learn about pixels, color spaces, and basic filtering techniques.",
-          "videoUrl": "https://www.youtube.com/watch?v=2iEAJVwtAhI"
+          "description": "Learn how digital images are stored and how basic image operations prepare them for further analysis.",
+          "videoUrl": "https://www.youtube.com/watch?v=oUJs03eZ0S8"
+        },
+        {
+          "id": "l11",
+          "title": "Filters and Convolution",
+          "description": "See how a small filter moves across an image to blur, sharpen, and reveal useful visual patterns.",
+          "videoUrl": "https://www.youtube.com/watch?v=NGeHyQm-0m8"
         }
       ],
       "quizzes": [
         {
           "id": "q1",
+          "lessonId": "l1",
+          "question": "What is the main goal of computer vision?",
+          "options": [
+            "To help computers understand information in images and videos",
+            "To make computer screens brighter",
+            "To store files in a database",
+            "To create computer networks"
+          ],
+          "correctAnswer": "To help computers understand information in images and videos"
+        },
+        {
+          "id": "q2",
           "lessonId": "l2",
-          "question": "What is the primary building block of a digital image?",
-          "options": ["Vector", "Node", "Pixel", "Polygon"],
-          "correctAnswer": "Pixel"
+          "question": "What is a digital image made up of?",
+          "options": ["Pixels", "Slides", "Rows of text", "Sound waves"],
+          "correctAnswer": "Pixels"
+        },
+        {
+          "id": "q3",
+          "lessonId": "l11",
+          "question": "What does a convolution filter do?",
+          "options": [
+            "Applies a small calculation across an image to change or detect patterns",
+            "Changes an image into a database table",
+            "Adds sound to a video",
+            "Sorts image files by name"
+          ],
+          "correctAnswer": "Applies a small calculation across an image to change or detect patterns"
         }
       ]
     },
     {
       "id": "c2",
       "title": "Database Management System",
-      "description": "Master the fundamentals of storing, retrieving, and managing data using relational databases.",
+      "category": "Databases",
+      "description": "Learn how relational databases organize information. Practice describing data with entity-relationship models, retrieving records with SQL, and combining related tables.",
       "difficulty": "Intermediate",
+      "learningOutcomes": [
+        "Recognize entities, attributes, and relationships",
+        "Write a basic SQL query to retrieve records",
+        "Understand how joins connect related tables"
+      ],
       "lessons": [
         {
           "id": "l3",
           "title": "Entity-Relationship Models",
-          "description": "Learn how to design database schemas using ER diagrams.",
+          "description": "Plan a database before building it by identifying entities, their attributes, and how they relate.",
           "videoUrl": "https://www.youtube.com/watch?v=QpdhBUYk7Kk"
         },
         {
           "id": "l4",
-          "title": "SQL Basics",
-          "description": "Write basic CRUD operations using Structured Query Language.",
-          "videoUrl": "https://www.youtube.com/watch?v=HXV3zeRE284"
+          "title": "SQL Basics: SELECT",
+          "description": "Use SELECT queries to retrieve specific information from a relational database.",
+          "videoUrl": "https://www.youtube.com/watch?v=HYD8KjPB9F8"
+        },
+        {
+          "id": "l12",
+          "title": "Joining Tables",
+          "description": "Combine related records from two tables and learn when a basic SQL join is useful.",
+          "videoUrl": "https://www.youtube.com/watch?v=0OQJDd3QqQM"
         }
       ],
       "quizzes": [
         {
-          "id": "q2",
+          "id": "q4",
+          "lessonId": "l3",
+          "question": "What does an entity represent in an ER model?",
+          "options": [
+            "A type of thing or concept about which the database stores information",
+            "A command that deletes a table",
+            "A color used to draw diagrams",
+            "A database password"
+          ],
+          "correctAnswer": "A type of thing or concept about which the database stores information"
+        },
+        {
+          "id": "q5",
           "lessonId": "l4",
-          "question": "Which SQL command is used to extract data from a database?",
-          "options": ["GET", "EXTRACT", "PULL", "SELECT"],
+          "question": "Which SQL command is used to retrieve data?",
+          "options": ["SELECT", "REMOVE", "CHANGE", "CONNECT"],
           "correctAnswer": "SELECT"
+        },
+        {
+          "id": "q6",
+          "lessonId": "l12",
+          "question": "Why would you use a SQL JOIN?",
+          "options": [
+            "To combine related rows from multiple tables",
+            "To rename every column in a database",
+            "To start a database server",
+            "To remove duplicate files from a computer"
+          ],
+          "correctAnswer": "To combine related rows from multiple tables"
         }
       ]
     },
     {
       "id": "c3",
       "title": "Natural Language Processing",
-      "description": "Explore the intersection of computer science and linguistics to program computers to process human language.",
+      "category": "Artificial Intelligence",
+      "description": "Discover how software works with human language. Learn foundational text preparation techniques and see how a model can identify the sentiment expressed in text.",
       "difficulty": "Advanced",
+      "learningOutcomes": [
+        "Explain why text needs to be prepared before analysis",
+        "Describe tokenization and common preprocessing steps",
+        "Recognize a basic sentiment analysis task"
+      ],
       "lessons": [
         {
           "id": "l5",
-          "title": "Text Preprocessing & Tokenization",
-          "description": "Learn how to clean text data and break it down into manageable tokens.",
-          "videoUrl": "https://www.youtube.com/watch?v=fNxaJsNG3-s"
+          "title": "Text Preprocessing and Tokenization",
+          "description": "Explore how raw text can be cleaned and split into tokens that a program can process.",
+          "videoUrl": "https://www.youtube.com/watch?v=6C0sLtw5ctc"
+        },
+        {
+          "id": "l13",
+          "title": "Introduction to Sentiment Analysis",
+          "description": "Learn how text classification can identify whether a sentence expresses a positive, negative, or neutral opinion.",
+          "videoUrl": "https://www.youtube.com/watch?v=5HQCNAsSO-s"
         }
       ],
       "quizzes": [
         {
-          "id": "q3",
+          "id": "q7",
           "lessonId": "l5",
-          "question": "What is the process of breaking text into smaller pieces (like words or sentences) called?",
-          "options": ["Stemming", "Lemmatization", "Tokenization", "Parsing"],
-          "correctAnswer": "Tokenization"
+          "question": "What is tokenization?",
+          "options": [
+            "Breaking text into smaller units such as words or subwords",
+            "Encrypting a computer's hard drive",
+            "Combining images into a video",
+            "Sorting database tables alphabetically"
+          ],
+          "correctAnswer": "Breaking text into smaller units such as words or subwords"
+        },
+        {
+          "id": "q8",
+          "lessonId": "l13",
+          "question": "What does sentiment analysis try to identify?",
+          "options": [
+            "The opinion or emotional tone expressed in text",
+            "The number of images on a website",
+            "The size of a database table",
+            "The speed of a network connection"
+          ],
+          "correctAnswer": "The opinion or emotional tone expressed in text"
         }
       ]
     },
     {
       "id": "c4",
-      "title": "Object Oriented Programming",
-      "description": "Understand software design around data, or objects, rather than functions and logic.",
+      "title": "Object-Oriented Programming",
+      "category": "Programming",
+      "description": "Build a foundation in object-oriented programming. Work with classes and objects, then learn how inheritance, polymorphism, and encapsulation help organize code.",
       "difficulty": "Beginner",
+      "learningOutcomes": [
+        "Distinguish a class from an object",
+        "Explain inheritance and polymorphism with examples",
+        "Describe how encapsulation organizes and protects data"
+      ],
       "lessons": [
         {
           "id": "l6",
           "title": "Classes and Objects",
-          "description": "Define blueprints (classes) and instantiate them (objects).",
+          "description": "Understand a class as a blueprint and create objects that hold data and provide behavior.",
           "videoUrl": "https://www.youtube.com/watch?v=pTB0EiLXUC8"
         },
         {
           "id": "l7",
           "title": "Inheritance and Polymorphism",
-          "description": "Learn how objects can take on multiple forms and inherit traits from parent classes.",
-          "videoUrl": "https://www.youtube.com/watch?v=hxG9cEMySCE"
+          "description": "See how classes can share behavior through inheritance and respond to the same operation in different ways.",
+          "videoUrl": "https://www.youtube.com/watch?v=46T2wD3IuhM"
+        },
+        {
+          "id": "l14",
+          "title": "Encapsulation",
+          "description": "Learn how an object can keep its data and the operations that use that data together.",
+          "videoUrl": "https://www.youtube.com/watch?v=YbqneqDIZh8"
         }
       ],
       "quizzes": [
         {
-          "id": "q4",
+          "id": "q9",
+          "lessonId": "l6",
+          "question": "In object-oriented programming, what is a class?",
+          "options": [
+            "A blueprint used to create objects",
+            "A finished program window",
+            "A type of database query",
+            "A list of website links"
+          ],
+          "correctAnswer": "A blueprint used to create objects"
+        },
+        {
+          "id": "q10",
           "lessonId": "l7",
-          "question": "Which OOP principle restricts direct access to some of an object's components?",
-          "options": ["Polymorphism", "Encapsulation", "Inheritance", "Abstraction"],
-          "correctAnswer": "Encapsulation"
+          "question": "What does inheritance allow a class to do?",
+          "options": [
+            "Reuse or extend behavior from another class",
+            "Turn source code into an image",
+            "Store a video in a browser",
+            "Remove all methods from an object"
+          ],
+          "correctAnswer": "Reuse or extend behavior from another class"
+        },
+        {
+          "id": "q11",
+          "lessonId": "l14",
+          "question": "What is a common purpose of encapsulation?",
+          "options": [
+            "Keep data and related behavior together and control access",
+            "Make every variable global",
+            "Connect a website to a video service",
+            "Convert a class into a database"
+          ],
+          "correctAnswer": "Keep data and related behavior together and control access"
         }
       ]
     },
     {
       "id": "c5",
-      "title": "Web Tech Workshop",
-      "description": "A comprehensive bootcamp covering the full stack of web development technologies: HTML, CSS, JS, and ExpressJS.",
+      "title": "Web Technology Workshop",
+      "category": "Web Development",
+      "description": "Follow the building blocks of a web application: structure pages with HTML, style them with CSS, add behavior with JavaScript, and create an API using ExpressJS.",
       "difficulty": "Intermediate",
+      "learningOutcomes": [
+        "Create and style a basic web page",
+        "Add interactivity with JavaScript",
+        "Understand the role of an ExpressJS API"
+      ],
       "lessons": [
         {
           "id": "l8",
-          "title": "Structure and Styling (HTML & CSS)",
-          "description": "Build the semantic skeleton of a webpage and style it with modern CSS.",
+          "title": "Structure and Styling with HTML and CSS",
+          "description": "Build the semantic structure of a webpage and apply CSS to control its layout and appearance.",
           "videoUrl": "https://www.youtube.com/watch?v=mU6anWqZJcc"
         },
         {
           "id": "l9",
           "title": "Interactivity with JavaScript",
-          "description": "Manipulate the DOM and handle user events using vanilla JavaScript.",
+          "description": "Learn the basics of JavaScript and how it can make a webpage respond to user actions.",
           "videoUrl": "https://www.youtube.com/watch?v=W6NZfCO5SIk"
         },
         {
           "id": "l10",
           "title": "Backend APIs with ExpressJS",
-          "description": "Set up a server, define routes, and handle HTTP requests using ExpressJS.",
+          "description": "See how ExpressJS can define server routes and respond to requests from a web application.",
           "videoUrl": "https://www.youtube.com/watch?v=L72fhGm1tfE"
+        },
+        {
+          "id": "l15",
+          "title": "Responsive Layouts with Media Queries",
+          "description": "Use CSS media queries to adjust a page layout for different screen sizes.",
+          "videoUrl": "https://www.youtube.com/watch?v=yU7jJ3NbPdA"
         }
       ],
       "quizzes": [
         {
-          "id": "q5",
+          "id": "q12",
           "lessonId": "l8",
           "question": "Which HTML tag is used to link an external CSS file?",
           "options": ["<style>", "<script>", "<link>", "<css>"],
           "correctAnswer": "<link>"
         },
         {
-          "id": "q6",
+          "id": "q13",
+          "lessonId": "l9",
+          "question": "Which JavaScript method is commonly used to respond to a browser event?",
+          "options": ["addEventListener", "makeEvent", "newListener", "startBrowser"],
+          "correctAnswer": "addEventListener"
+        },
+        {
+          "id": "q14",
           "lessonId": "l10",
-          "question": "What is ExpressJS primarily used for?",
-          "options": ["Styling web pages", "Building Node.js web applications and APIs", "Managing relational databases", "Running React applications"],
-          "correctAnswer": "Building Node.js web applications and APIs"
+          "question": "What is ExpressJS commonly used for?",
+          "options": [
+            "Building web applications and APIs with Node.js",
+            "Styling HTML elements",
+            "Editing video files",
+            "Creating relational database tables"
+          ],
+          "correctAnswer": "Building web applications and APIs with Node.js"
+        },
+        {
+          "id": "q15",
+          "lessonId": "l15",
+          "question": "What is a CSS media query used for?",
+          "options": [
+            "Applying styles when conditions such as screen width match",
+            "Playing audio on a webpage",
+            "Creating a new HTML element",
+            "Sending data to a database"
+          ],
+          "correctAnswer": "Applying styles when conditions such as screen width match"
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "React Fundamentals",
+      "category": "Frontend Development",
+      "description": "Get started with React by building interfaces from components. Learn how props pass information, how state tracks changes, and how effects and routes connect a small application.",
+      "difficulty": "Beginner",
+      "learningOutcomes": [
+        "Describe how React components form a user interface",
+        "Pass information with props and update values with state",
+        "Use effects and routes in a small React application"
+      ],
+      "lessons": [
+        {
+          "id": "l16",
+          "title": "Components and Props",
+          "description": "Break a user interface into reusable components and pass each component the information it needs.",
+          "videoUrl": "https://www.youtube.com/watch?v=uvEAvxWvwOs"
+        },
+        {
+          "id": "l17",
+          "title": "Managing State with useState",
+          "description": "Use the useState hook to remember values and update the interface in response to user actions.",
+          "videoUrl": "https://www.youtube.com/watch?v=V9i3cGD-mts"
+        },
+        {
+          "id": "l18",
+          "title": "Working with useEffect",
+          "description": "Learn how useEffect can synchronize a component with external systems and load data.",
+          "videoUrl": "https://www.youtube.com/watch?v=-4XpG5_Lj_o"
+        },
+        {
+          "id": "l19",
+          "title": "Page Navigation with React Router",
+          "description": "Add client-side navigation so people can move between pages in a React application.",
+          "videoUrl": "https://www.youtube.com/watch?v=943D7U74_sQ"
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "q16",
+          "lessonId": "l16",
+          "question": "What is a React component?",
+          "options": [
+            "A reusable part of a user interface",
+            "A CSS color value",
+            "A database table",
+            "A browser extension"
+          ],
+          "correctAnswer": "A reusable part of a user interface"
+        },
+        {
+          "id": "q17",
+          "lessonId": "l17",
+          "question": "What does the useState hook provide?",
+          "options": [
+            "A way for a component to keep and update state",
+            "A way to define an HTML document",
+            "A database connection",
+            "A CSS media query"
+          ],
+          "correctAnswer": "A way for a component to keep and update state"
+        },
+        {
+          "id": "q18",
+          "lessonId": "l18",
+          "question": "When is useEffect commonly used?",
+          "options": [
+            "To synchronize a component with an external system",
+            "To style a button",
+            "To declare a database schema",
+            "To create a new HTML tag"
+          ],
+          "correctAnswer": "To synchronize a component with an external system"
+        },
+        {
+          "id": "q19",
+          "lessonId": "l19",
+          "question": "What does client-side routing help with in a React app?",
+          "options": [
+            "Moving between views without loading a new HTML page each time",
+            "Playing a video without a URL",
+            "Creating CSS classes automatically",
+            "Saving a browser password"
+          ],
+          "correctAnswer": "Moving between views without loading a new HTML page each time"
         }
       ]
     }

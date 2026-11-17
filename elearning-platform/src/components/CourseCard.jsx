@@ -6,10 +6,11 @@ export default function CourseCard({course}){
         <div className='course-card'>
             <span className='badge'>{course.difficulty}</span>
             <h2>{course.title}</h2>
+            <p className="course-meta">{course.category} · {course.lessons.length} lessons</p>
             <p>{course.description}</p>
 
-            <Link to={'/course/${course.id}'} style={{textDecoration: 'none'}}>
-                <button className='btn-primary'>View Course</button>
+            <Link to={`/course/${course.id}`} className='btn-primary'>
+                View Course
             </Link>
         </div>
     );

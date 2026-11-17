@@ -1,22 +1,21 @@
 import './Components.css';
 
 export default function ProgressBar({completed, total}) {
-    function calcPercentage(){
-        if(total == 0){
-            return 0;
-        }
-        else{
-            return Math.round((completed/total) * 100);
-        }
-    }
+    const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
 
     return (
-        <>
-            <div className='prog-bar'>
-                <div className="prog-fill" style={{width: `${calcPercentage()}%`}}>
-                </div>
+        <div className="progress-summary">
+            <div
+                className="progress-container"
+                role="progressbar"
+                aria-label="Course progress"
+                aria-valuenow={percentage}
+                aria-valuemin="0"
+                aria-valuemax="100"
+            >
+                <div className="progress-fill" style={{width: `${percentage}%`}} />
             </div>
-            <p>{calcPercentage()}% Completed ({completed}/{total} lessons) </p>
-        </>
+            <p className="progress-text">{percentage}% completed ({completed}/{total} lessons)</p>
+        </div>
     );
 }
