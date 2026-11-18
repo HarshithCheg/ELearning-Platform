@@ -139,7 +139,7 @@
       "id": "c3",
       "title": "Natural Language Processing",
       "category": "Artificial Intelligence",
-      "thumbnail":"/2.jpeg",
+      "thumbnail":"/9.png",
       "description": "Discover how software works with human language. Learn foundational text preparation techniques and see how a model can identify the sentiment expressed in text.",
       "difficulty": "Advanced",
       "learningOutcomes": [
@@ -342,7 +342,7 @@
       "id": "c6",
       "title": "Business classes",
       "category": "Business",
-      "thumbnail":"/5.jpeg",
+      "thumbnail":"/2.jpeg",
       "description": "Get started with React by building interfaces from components. Learn how props pass information, how state tracks changes, and how effects and routes connect a small application.",
       "difficulty": "Beginner",
       "learningOutcomes": [
