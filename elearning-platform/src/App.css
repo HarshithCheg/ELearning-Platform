@@ -100,7 +100,104 @@ body {
 .course-header > p {
   color: var(--text-muted);
 }
+/* Course Card Container */
+.course-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px; /* Rounder corners look more modern */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    height: 100%; /* Ensures all cards in a row are same height */
+}
 
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(23, 43, 77, 0.12);
+}
+
+/* Image/Thumbnail area */
+.course-card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #e2e8f0;
+}
+
+.course-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Difficulty Badge Styling */
+.badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: var(--accent-soft);
+    color: var(--accent-color);
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Body and Typography */
+.course-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.course-meta {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.course-card-body h2 {
+    font-size: 1.25rem;
+    color: var(--text-main);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.course-description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Truncates text after 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+/* Footer and Button */
+.course-card-footer {
+    margin-top: auto; /* Pushes button to the bottom */
+}
+
+.btn-primary {
+    display: block;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
 .course-header > .course-meta {
   color: var(--primary-color);
   font-weight: 600;
