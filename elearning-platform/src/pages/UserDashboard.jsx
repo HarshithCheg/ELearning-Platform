@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import CourseCard from '../components/CourseCard';
 import ProgressBar from '../components/ProgressBar';
@@ -10,153 +10,96 @@ export default function UserDashboard() {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const {enrolledCourseIds, completedLessonIds, quizResults} = useLearning();
+    const [showTech, setShowTech] = useState(false); // Presentation Mode
+    const { enrolledCourseIds, completedLessonIds } = useLearning(); // Context Hook
 
     useEffect(() => {
         async function fetchCourses() {
             try {
+                // Brain: HTTP GET request using Axios
                 const response = await axios.get('/data.json');
                 setCourses(response.data.courses);
             } catch (error) {
-                console.error('Could not load dashboard courses:', error);
-                setError('Your courses could not be loaded. Please try again later.');
+                setError('Your courses could not be loaded.');
             } finally {
                 setLoading(false);
             }
         }
-
         fetchCourses();
     }, []);
 
-    if (loading) {
-        return <div className="page-container"><h2>Loading your dashboard...</h2></div>;
-    }
-
+    // Brain: Derived State (Filtering and Computing data)
     const enrolledCourses = courses.filter(course => enrolledCourseIds.includes(course.id));
-    const enrolledQuizzes = enrolledCourses.flatMap(course => course.quizzes);
-    const enrolledQuizResults = enrolledQuizzes
-        .map(quiz => quizResults.find(result => result.quizId === quiz.id))
-        .filter(Boolean);
-    const completedLessons = enrolledCourses.flatMap(course => course.lessons)
-        .filter(lesson => completedLessonIds.includes(lesson.id)).length;
-    const totalLessons = enrolledCourses.reduce((total, course) => total + course.lessons.length, 0);
-    const correctQuizCount = enrolledQuizResults.filter(result => result.isCorrect).length;
-    const quizAccuracy = enrolledQuizResults.length
-        ? Math.round((correctQuizCount / enrolledQuizResults.length) * 100)
-        : 0;
-    const lessonCompletion = totalLessons
-        ? Math.round((completedLessons / totalLessons) * 100)
-        : 0;
+    const totalLessons = enrolledCourses.reduce((acc, c) => acc + c.lessons.length, 0);
+
+    if (loading) return <div className="page-container flex-center"><div className="loader"></div></div>;
 
     return (
-        <div className="page-container">
-            <h1>My Dashboard</h1>
-            {error && <p className="error-message">{error}</p>}
-            {!error && enrolledCourses.length > 0 && (
-                <section className="performance-section" aria-labelledby="performance-title">
-                    <h2 id="performance-title">Your performance</h2>
-                    <p className="performance-intro">A quick look at your lesson progress and quiz results.</p>
-                    <div className="performance-summary">
-                        <article className="performance-card">
-                            <span className="performance-label">Lessons completed</span>
-                            <strong>{completedLessons}<span> / {totalLessons}</span></strong>
-                            <span className="performance-note">{lessonCompletion}% of your enrolled lessons</span>
-                        </article>
-                        <article className="performance-card">
-                            <span className="performance-label">Quiz accuracy</span>
-                            <strong>{enrolledQuizResults.length ? `${quizAccuracy}%` : '—'}</strong>
-                            <span className="performance-note">
-                                {enrolledQuizResults.length
-                                    ? `${correctQuizCount} correct out of ${enrolledQuizResults.length} attempted`
-                                    : 'Complete a quiz to see your score'}
-                            </span>
-                        </article>
-                    </div>
-
-                    <div className="performance-charts">
-                        <section className="performance-chart" aria-labelledby="completion-chart-title">
-                            <h3 id="completion-chart-title">Course completion</h3>
-                            {enrolledCourses.map(course => {
-                                const completedCount = course.lessons.filter(
-                                    lesson => completedLessonIds.includes(lesson.id)
-                                ).length;
-                                const percentage = Math.round((completedCount / course.lessons.length) * 100);
-
-                                return (
-                                    <div className="chart-row" key={course.id}>
-                                        <div className="chart-label">
-                                            <span>{course.title}</span>
-                                            <span>{percentage}%</span>
-                                        </div>
-                                        <div
-                                            className="chart-track"
-                                            role="progressbar"
-                                            aria-label={`${course.title} completion`}
-                                            aria-valuenow={percentage}
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                        >
-                                            <div className="chart-fill completion-fill" style={{width: `${percentage}%`}} />
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </section>
-
-                        <section className="performance-chart" aria-labelledby="quiz-chart-title">
-                            <h3 id="quiz-chart-title">Quiz accuracy by course</h3>
-                            {enrolledCourses.map(course => {
-                                const courseQuizResults = course.quizzes
-                                    .map(quiz => quizResults.find(result => result.quizId === quiz.id))
-                                    .filter(Boolean);
-                                const courseCorrectCount = courseQuizResults.filter(result => result.isCorrect).length;
-                                const percentage = courseQuizResults.length
-                                    ? Math.round((courseCorrectCount / courseQuizResults.length) * 100)
-                                    : 0;
-
-                                return (
-                                    <div className="chart-row" key={course.id}>
-                                        <div className="chart-label">
-                                            <span>{course.title}</span>
-                                            <span>{courseQuizResults.length ? `${percentage}%` : 'Not attempted'}</span>
-                                        </div>
-                                        <div
-                                            className="chart-track"
-                                            role="progressbar"
-                                            aria-label={`${course.title} quiz accuracy`}
-                                            aria-valuenow={percentage}
-                                            aria-valuemin="0"
-                                            aria-valuemax="100"
-                                        >
-                                            <div className="chart-fill quiz-fill" style={{width: `${percentage}%`}} />
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </section>
-                    </div>
-                </section>
-            )}
-            {!error && enrolledCourses.length === 0 && (
-                <div className="empty-dashboard">
-                    <p>You have not enrolled in any courses yet.</p>
-                    <Link to="/" className="btn-primary">Browse Courses</Link>
+        <div className="dashboard-wrapper">
+            {/* Beauty: Dark Dashboard Header */}
+            <header className="hero-banner-full dashboard-hero">
+                <div className="page-container">
+                    <button className="tech-toggle" onClick={() => setShowTech(!showTech)}>
+                        {showTech ? 'Hide Tech Info' : 'Show Technical Info (Brain Mode)'}
+                    </button>
+                    <h1>Student Dashboard</h1>
+                    <p>Welcome back! Track your progress and continue your journey.</p>
                 </div>
-            )}
-            <div className="course-grid">
-                {enrolledCourses.map(course => {
-                    const completedCount = course.lessons.filter(
-                        lesson => completedLessonIds.includes(lesson.id)
-                    ).length;
+            </header>
 
-                    return (
-                        <div className="dashboard-course" key={course.id}>
-                            <CourseCard course={course} />
-                            <ProgressBar completed={completedCount} total={course.lessons.length} />
+            <main className="main-content-area">
+                <div className="page-container">
+                    
+                    {/* Brain & Beauty: Performance Analytics Section */}
+                    <section className="performance-section shadow-md">
+                        <div className="performance-intro">
+                            <h2>My Performance</h2>
+                            {showTech && <span className="tech-tag">State Management: Derived values from Context API</span>}
                         </div>
-                    );
-                })}
-            </div>
+                        <div className="performance-summary">
+                            <div className="performance-card">
+                                <span className="performance-label">Enrolled Courses</span>
+                                <strong>{enrolledCourses.length}</strong>
+                            </div>
+                            <div className="performance-card">
+                                <span className="performance-label">Lessons Completed</span>
+                                <strong>{completedLessonIds.length} <span>/ {totalLessons}</span></strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Brain: Conditional Rendering for Empty State */}
+                    {!error && enrolledCourses.length === 0 && (
+                        <div className="empty-dashboard-box shadow-md">
+                            <p>You have not enrolled in any courses yet.</p>
+                            <Link to="/" className="btn-primary">Explore Catalog</Link>
+                        </div>
+                    )}
+
+                    {/* Beauty: Broad Landscape Grid */}
+                    <div className="course-grid">
+                        {enrolledCourses.map(course => {
+                            // Brain: Logic to calculate progress per course
+                            const completedCount = course.lessons.filter(
+                                lesson => completedLessonIds.includes(lesson.id)
+                            ).length;
+
+                            return (
+                                <div className="dashboard-course-item" key={course.id}>
+                                    {showTech && <div className="tech-tag card-tech">Props: Reusing CourseCard component</div>}
+                                    <CourseCard course={course} />
+                                    <div className="progress-footer">
+                                        <ProgressBar completed={completedCount} total={course.lessons.length} />
+                                        <Link to={`/course/${course.id}`} className="resume-link">
+                                            {completedCount > 0 ? 'Resume' : 'Start'} →
+                                        </Link>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </main>
         </div>
     );
 }
