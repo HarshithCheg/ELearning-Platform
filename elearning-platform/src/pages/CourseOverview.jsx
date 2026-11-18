@@ -1,94 +1,68 @@
-import '../App.css';
-import {useState, useEffect} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import axios from 'axios';
-import useLearning from '../context/useLearning';
-import ProgressBar from '../components/ProgressBar';
+import '../App.css';
 
 export default function CourseOverview() {
-    const {courseID} = useParams();
-    return <CourseDetails key={courseID} courseID={courseID} />;
-}
-
-function CourseDetails({courseID}) {
-    const [course, setCourse] = useState();
+    const { id } = useParams();
+    const [course, setCourse] = useState(null);
+    const [activeTab, setActiveTab] = useState('lessons'); // Brain: Tab State
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const {enrolledCourseIds, completedLessonIds, enrollInCourse} = useLearning();
 
     useEffect(() => {
-        async function fetchDetails() {
-            try{
-                const response = await axios.get('/data.json');
-                setCourse(response.data.courses.find(item => item.id === courseID));
-            }
-            catch(error){
-                console.error('failed to fetch details', error);
-                setError('Course details could not be loaded. Please try again later.');
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchDetails();
-    }, [courseID]);
+        axios.get('/data.json').then(res => {
+            const found = res.data.courses.find(c => String(c.id) === String(id));
+            setCourse(found);
+            setLoading(false);
+        });
+    }, [id]);
 
-    if(loading){
-        return(
-            <div className='page-container'><h2>Loading course details...</h2></div>
-        );
-    }
+    if (loading || !course) return <div className="flex-center">Loading Content...</div>;
 
-    if (error) {
-        return <div className="page-container"><p className="error-message">{error}</p></div>;
-    }
+    return (
+        <div className="course-view">
+            {/* 1. BROAD HERO BANNER */}
+            <header className="hero-banner-full">
+                <img src={course.thumbnail} className="full-hero-img" alt={course.title} />
+                <div className="hero-overlay">
+                    <h1>{course.title}</h1>
+                    <p>{course.category} • {course.difficulty}</p>
+                </div>
+            </header>
 
-    if (!course) {
-        return <div className='page-container'><h2>Course not found</h2></div>;
-    }
+            {/* 2. OVERLAPPING CONTENT SECTION */}
+            <main className="main-content-area">
+                <nav className="view-tabs">
+                    <div className={`tab ${activeTab === 'lessons' ? 'active' : ''}`} onClick={() => setActiveTab('lessons')}>Lessons</div>
+                    <div className={`tab ${activeTab === 'quizzes' ? 'active' : ''}`} onClick={() => setActiveTab('quizzes')}>Assessments</div>
+                </nav>
 
-    const isEnrolled = enrolledCourseIds.includes(course.id);
-    const completedCount = course.lessons.filter(
-        lesson => completedLessonIds.includes(lesson.id)
-    ).length;
-
-    return(
-        <div className='page-container'>
-            <section className="course-header">
-                <span className="badge">{course.difficulty}</span>
-                <h1>{course.title}</h1>
-                <p className="course-meta">{course.category} · {course.lessons.length} lessons</p>
-                <p>{course.description}</p>
-                <h2>What you will learn</h2>
-                <ul className="learning-outcomes">
-                    {course.learningOutcomes.map(outcome => <li key={outcome}>{outcome}</li>)}
-                </ul>
-                {isEnrolled ? (
-                    <p className="success-message">You are enrolled in this course.</p>
-                ) : (
-                    <button className="btn-primary enroll-button" onClick={() => enrollInCourse(course.id)}>
-                        Enroll in Course
-                    </button>
-                )}
-            </section>
-
-            <section className="course-lessons">
-                <h2>Course progress</h2>
-                <ProgressBar completed={completedCount} total={course.lessons.length} />
-                <h2>Lessons</h2>
-                <ol className="lesson-list">
-                    {course.lessons.map((lesson, index) => (
-                        <li key={lesson.id}>
-                            <Link to={`/course/${course.id}/lesson/${lesson.id}`}>
-                                <span>Lesson {index + 1}: {lesson.title}</span>
-                                {completedLessonIds.includes(lesson.id) && (
-                                    <span className="lesson-complete">Completed</span>
-                                )}
-                            </Link>
-                            <p>{lesson.description}</p>
-                        </li>
-                    ))}
-                </ol>
-            </section>
+                <div className="grid-layout">
+                    {activeTab === 'lessons' ? (
+                        course.lessons.map((l, index) => (
+                            <div key={l.id} className="course-card-udemy">
+                                <div className="card-thumbnail" style={{background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white'}}>▶</div>
+                                <div className="card-info">
+                                    <h3>{l.title}</h3>
+                                    <p className="card-instructor">Lesson {index + 1}</p>
+                                    <Link to={`/course/${course.id}/lesson/${l.id}`} className="btn-primary">Watch Now</Link>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        course.quizzes?.map((q, index) => (
+                            <div key={q.id} className="course-card-udemy">
+                                <div className="card-thumbnail" style={{background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white'}}>📝</div>
+                                <div className="card-info">
+                                    <h3>Quiz {index + 1}</h3>
+                                    <p className="card-instructor">Checkpoint Assessment</p>
+                                    <Link to={`/course/${course.id}/lesson/${q.lessonId}`} className="btn-primary" style={{background: '#10b981'}}>Take Quiz</Link>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+            </main>
         </div>
     );
 }
