@@ -5,13 +5,17 @@ import '../App.css';
 
 export default function CourseCatalog() {
     const [courses, setCourses] = useState([]);
+    const [heroImage, setHeroImage] = useState(''); // Space for the background link
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchCourses() {
             try {
                 const response = await axios.get('/data.json');
+                // Set the courses from the JSON
                 setCourses(response.data.courses);
+                // Set the hero image from the new homeSettings section
+                setHeroImage(response.data.homeSettings.heroImage);
             } catch (error) {
                 console.error("Error:", error);
             } finally {
@@ -25,31 +29,26 @@ export default function CourseCatalog() {
 
     return (
         <div className="catalog-wrapper">
-            {/* Broad Landscape Hero Panel */}
-            <section className="hero-banner">
-                <div className="hero-content">
-                    <h1>Skills to transform your career and life</h1>
-                    <p>From critical workplace skills to technical topics, EduTech supports your professional development.</p>
-                    <button className="btn-hero">Start Learning Now</button>
-                </div>
-                <div className="hero-image-container">
-                    {/* Replace this URL with your landscape photo */}
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Learning" />
-                </div>
-            </section>
-
-            <div className="page-container">
-                <div className="section-title">
-                    <h2>Our Top Courses</h2>
-                    <p>Expand your horizon with our most popular content.</p>
-                </div>
-
-                <div className="course-grid">
-                    {courses.map(course => (
-                        <CourseCard key={course.id} course={course} />
-                    ))}
-                </div>
+            {/* Full Width Cinematic Banner */}
+            <div className="hero-section">
+                 <img src={heroImage} alt="Hero" className="full-hero-img" />
             </div>
+    
+            {/* The Course Section with a different background */}
+            <main className="main-content-area">
+                <div className="page-container">
+                    <div className="catalog-intro">
+                        <h1>Our Top Courses</h1>
+                        <p>Expand your horizon with our most popular content.</p>
+                    </div>
+    
+                    <div className="course-grid">
+                        {courses.map(course => (
+                            <CourseCard key={course.id} course={course} />
+                        ))}
+                    </div>
+                </div>
+            </main>
         </div>
     );
 }
