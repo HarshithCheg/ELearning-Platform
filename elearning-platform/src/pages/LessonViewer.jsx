@@ -1,155 +1,93 @@
-import {useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
 import useLearning from '../context/useLearning';
 import '../App.css';
 
 export default function LessonViewer() {
-    const {courseID, lessonID} = useParams();
-    return <LessonContent key={`${courseID}-${lessonID}`} courseID={courseID} lessonID={lessonID} />;
+    const { courseId, lessonId } = useParams();
+    // Key reset ensures quiz resets when you switch lessons in the sidebar
+    return <LessonContent key={lessonId} courseId={courseId} lessonId={lessonId} />;
 }
 
-function LessonContent({courseID, lessonID}) {
-    const [course, setCourse] = useState();
-    const [lesson, setLesson] = useState();
-    const [quiz, setQuiz] = useState();
+function LessonContent({ courseId, lessonId }) {
+    const [course, setCourse] = useState(null);
+    const [lesson, setLesson] = useState(null);
+    const [quiz, setQuiz] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [videoError, setVideoError] = useState(false);
-    const [playerAttempt, setPlayerAttempt] = useState(0);
-    const [selectedAnswer, setSelectedAnswer] = useState('');
-    const [quizSubmitted, setQuizSubmitted] = useState(false);
-    const {completedLessonIds, completeLesson, saveQuizResult} = useLearning();
-    const isCompleted = completedLessonIds.includes(lessonID);
+    const [selectedOpt, setSelectedOpt] = useState('');
+    const [submitted, setSubmitted] = useState(false);
+
+    const { completeLesson, completedLessonIds } = useLearning();
 
     useEffect(() => {
-        async function fetchLesson() {
-            try {
-                const response = await axios.get('/data.json');
-                const foundCourse = response.data.courses.find(item => item.id === courseID);
-                const foundLesson = foundCourse?.lessons.find(item => item.id === lessonID);
+        axios.get('/data.json').then(res => {
+            const c = res.data.courses.find(item => String(item.id) === String(courseId));
+            const l = c?.lessons.find(item => String(item.id) === String(lessonId));
+            const q = c?.quizzes.find(item => String(item.lessonId) === String(lessonId));
+            setCourse(c); setLesson(l); setQuiz(q); setLoading(false);
+        });
+    }, [courseId, lessonId]);
 
-                setCourse(foundCourse);
-                setLesson(foundLesson);
-                setQuiz(foundCourse?.quizzes.find(item => item.lessonId === lessonID));
-            } catch (error) {
-                console.error('Could not load lesson:', error);
-                setError('Lesson could not be loaded. Please try again later.');
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchLesson();
-    }, [courseID, lessonID]);
-
-    if (loading) {
-        return <div className="page-container"><h2>Loading lesson...</h2></div>;
-    }
-
-    if (error) {
-        return <div className="page-container"><p className="error-message">{error}</p></div>;
-    }
-
-    if (!course || !lesson) {
-        return <div className="page-container"><h2>Lesson not found</h2></div>;
-    }
-
-    function markLessonComplete() {
-        completeLesson(lesson.id);
-    }
-
-    function submitQuiz(event) {
-        event.preventDefault();
-        if (selectedAnswer) {
-            saveQuizResult(quiz.id, selectedAnswer, selectedAnswer === quiz.correctAnswer);
-            setQuizSubmitted(true);
-        }
-    }
+    if (loading || !lesson) return <div className="flex-center">Loading Video Player...</div>;
 
     return (
-        <div className="page-container lesson-page">
-            <Link className="back-link" to={`/course/${course.id}`}>← Back to {course.title}</Link>
-            <h1>{lesson.title}</h1>
-            <p>{lesson.description}</p>
+        <div className="viewer-container">
+            {/* LEFT: MAIN STUDY AREA */}
+            <main className="video-main-column">
+                <Link to={`/course/${courseId}`} className="back-link" style={{marginBottom: '20px', display: 'block'}}>← Back to Course Overview</Link>
+                
+                <div className="video-wrapper">
+                    <ReactPlayer url={lesson.videoUrl} controls width="100%" height="100%" onEnded={() => completeLesson(lessonId)} />
+                </div>
 
-            <div className="video-player">
-                {videoError ? (
-                    <div className="video-error">
-                        <p>The video could not be played in the embedded player.</p>
-                        <button
-                            className="video-retry"
-                            onClick={() => {
-                                setVideoError(false);
-                                setPlayerAttempt(attempt => attempt + 1);
-                            }}
-                        >
-                            Try again
-                        </button>
-                        <a href={lesson.videoUrl} target="_blank" rel="noreferrer">
-                            Open video on YouTube
-                        </a>
-                    </div>
-                ) : (
-                    <ReactPlayer
-                        key={`${lesson.videoUrl}-${playerAttempt}`}
-                        src={lesson.videoUrl}
-                        controls
-                        width="100%"
-                        height="100%"
-                        onEnded={markLessonComplete}
-                        onError={(error) => {
-                            console.error('Video playback failed:', error);
-                            setVideoError(true);
-                        }}
-                    />
-                )}
-            </div>
-            <p className="video-help">
-                If the player stays blank, <a href={lesson.videoUrl} target="_blank" rel="noreferrer">watch this lesson on YouTube</a>.
-            </p>
+                <div className="video-meta">
+                    <h1>{lesson.title}</h1>
+                    <p>{lesson.description}</p>
+                    <button className="btn-primary" onClick={() => completeLesson(lessonId)}>
+                        {completedLessonIds.includes(lessonId) ? '✓ Completed' : 'Mark as Finished'}
+                    </button>
+                </div>
 
-            <button
-                className="btn-primary complete-button"
-                onClick={markLessonComplete}
-                disabled={isCompleted}
-            >
-                {isCompleted ? 'Lesson Completed' : 'Mark Lesson Complete'}
-            </button>
-
-            {quiz && (
-                <section className="quiz-section">
-                    <h2>Quick Quiz</h2>
-                    <form onSubmit={submitQuiz}>
-                        <fieldset disabled={quizSubmitted}>
-                            <legend>{quiz.question}</legend>
-                            {quiz.options.map(option => (
-                                <label className="quiz-option" key={option}>
-                                    <input
-                                        type="radio"
-                                        name={quiz.id}
-                                        value={option}
-                                        checked={selectedAnswer === option}
-                                        onChange={() => setSelectedAnswer(option)}
-                                    />
-                                    {option}
-                                </label>
+                {/* THE INTEGRATED QUIZ (Styling it like a pro component) */}
+                {quiz && (
+                    <div className="quiz-section-viewer">
+                        <h2 style={{color: '#059669', marginBottom: '20px'}}>Interactive Quiz Checkpoint</h2>
+                        <h3 style={{marginBottom: '15px'}}>{quiz.question}</h3>
+                        <div style={{display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px'}}>
+                            {quiz.options.map(opt => (
+                                <button 
+                                    key={opt}
+                                    style={{padding: '15px', textAlign: 'left', border: '1px solid #ddd', borderRadius: '8px', background: selectedOpt === opt ? '#dcfce7' : 'white', cursor: 'pointer'}}
+                                    onClick={() => !submitted && setSelectedOpt(opt)}
+                                >{opt}</button>
                             ))}
-                        </fieldset>
-                        <button className="btn-primary quiz-submit" type="submit" disabled={!selectedAnswer || quizSubmitted}>
-                            Submit Answer
-                        </button>
-                    </form>
-                    {quizSubmitted && (
-                        <p className={selectedAnswer === quiz.correctAnswer ? 'success-message' : 'error-message'}>
-                            {selectedAnswer === quiz.correctAnswer
-                                ? 'Correct! Well done.'
-                                : `Not quite. The correct answer is ${quiz.correctAnswer}.`}
-                        </p>
-                    )}
-                </section>
-            )}
+                        </div>
+                        {!submitted ? (
+                            <button className="btn-success" disabled={!selectedOpt} onClick={() => setSubmitted(true)}>Submit Answer</button>
+                        ) : (
+                            <div style={{padding: '20px', borderRadius: '8px', background: selectedOpt === quiz.correctAnswer ? '#dcfce7' : '#fee2e2'}}>
+                                <strong>{selectedOpt === quiz.correctAnswer ? '🎉 Correct!' : '❌ Incorrect. Read again!'}</strong>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </main>
+
+            {/* RIGHT: COURSE CURRICULUM SIDEBAR */}
+            <aside className="curriculum-sidebar">
+                <div className="sidebar-head">Course Content</div>
+                <div className="playlist">
+                    {course.lessons.map((l, i) => (
+                        <Link to={`/course/${courseId}/lesson/${l.id}`} key={l.id} className={`lesson-row ${l.id === lessonId ? 'active' : ''}`}>
+                            <span className="num">{i + 1}</span>
+                            <div style={{flex: 1}}>{l.title}</div>
+                            {completedLessonIds.includes(l.id) && <span style={{color: '#10b981'}}>✓</span>}
+                        </Link>
+                    ))}
+                </div>
+            </aside>
         </div>
     );
 }
