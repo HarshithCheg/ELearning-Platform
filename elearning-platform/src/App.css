@@ -115,7 +115,7 @@
   .hero-banner-full {
     width: 100%;
     height: 360px;
-    background: #0f172a;
+    background: linear-gradient(90deg, #0f172a 0%, #1e293b 48%, #e2e8f0 100%);
     overflow: hidden;
     position: relative;
   }
@@ -124,8 +124,19 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
     opacity: 0.72;
+  }
+
+  .course-hero-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 52%;
+    height: 100%;
+    object-fit: contain;
+    object-position: right center;
+    opacity: 1;
   }
   
   /* Hero Overlay Text */
@@ -135,7 +146,7 @@
     left: 6%;
     color: white;
     text-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    max-width: 720px;
+    max-width: 48%;
   }
   
   .hero-overlay h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 10px; }
@@ -256,6 +267,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 20%;
     transition: transform 0.6s ease;
   }
   
@@ -355,6 +367,25 @@
     justify-content: center;
     gap: 0.5rem;
     margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    opacity: 1;
+    visibility: visible;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .watch-now-button:hover,
+  .watch-now-button:focus-visible {
+    background: var(--primary-hover);
+    color: #fff;
+  }
+
+  .watch-now-button:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
   }
   .video-wrapper {
     width: 100%;
@@ -565,6 +596,28 @@
 
   .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
   .btn-primary:disabled { cursor: default; opacity: 0.7; }
+
+  .course-view .course-card-udemy a.watch-now-button {
+    display: inline-flex;
+    width: 100%;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .course-view .course-card-udemy a.watch-now-button:hover {
+    background: var(--primary-hover);
+    color: #fff;
+  }
   
   .tech-tag {
     display: inline-block;
@@ -639,8 +692,9 @@
     .nav-link { padding: 0.7rem 0; }
     .nav-link + .nav-link { border-top: 1px solid var(--border); }
     .course-grid, .grid-layout { grid-template-columns: 1fr; }
-    .hero-banner-full { height: 250px; }
-    .hero-overlay { left: 5%; bottom: 48px; }
+    .hero-banner-full { height: 320px; }
+    .course-hero-image { width: 72%; }
+    .hero-overlay { left: 5%; bottom: 24px; max-width: 45%; }
     .main-content-area { padding: 48px 0; }
     .video-main-column { padding: 20px 5%; }
     .video-meta, .quiz-section-viewer { padding: 20px; }

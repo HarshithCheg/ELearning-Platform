@@ -38,7 +38,7 @@ export default function CourseOverview() {
             <header className="hero-banner-full">
                 <img
                     src={course.thumbnail || '/7.jpeg'}
-                    className="full-hero-img"
+                    className="full-hero-img course-hero-image"
                     alt=""
                     onError={event => {
                         event.currentTarget.src = '/7.jpeg';
