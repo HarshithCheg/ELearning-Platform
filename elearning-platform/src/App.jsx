@@ -1,6 +1,5 @@
-import {useState} from 'react';
 import './App.css';
-import {Routes, Route, Link} from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 
 import CourseCatalog from './pages/CourseCatalog';
 import CourseOverview from './pages/CourseOverview';
@@ -8,41 +7,36 @@ import UserDashboard from './pages/UserDashboard';
 import LessonViewer from './pages/LessonViewer';
 
 export default function App() {
-    const [menuOpen, setMenuOpen] = useState(false);
-
     return (
-        <>
-            <nav className={`navbar ${menuOpen ? 'menu-open' : ''}`}>
-                <div className="nav-top-row">
-                    <Link to="/" className="nav-brand" onClick={() => setMenuOpen(false)}>
-                        EduTech Platform
-                    </Link>
-                    <button
-                        className="menu-toggle"
-                        type="button"
-                        aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-                        aria-expanded={menuOpen}
-                        aria-controls="primary-navigation"
-                        onClick={() => setMenuOpen(isOpen => !isOpen)}
-                    >
-                        <span />
-                        <span />
-                        <span />
-                    </button>
-                </div>
-                <div className="nav-links" id="primary-navigation">
-                    <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>Catalog</Link>
-                    <Link to="/dashboard" className="nav-link" onClick={() => setMenuOpen(false)}>My Dashboard</Link>
+        <div className="app-shell">
+            <nav className='navbar'>
+                <div className="nav-container">
+                    <Link to='/' className='nav-brand'>EduTech <span>Platform</span></Link>
+                    
+                    <div className='nav-links'>
+                        <Link to="/" className='nav-link'>Catalog</Link>
+                        <Link to="/dashboard" className='nav-link'>My Dashboard</Link>
+                    </div>
                 </div>
             </nav> 
-            <main className='page-container'>
+
+            {/* Note: I removed 'page-container' from here because our pages 
+                now handle their own spacing for that full-width hero look */}
+            <main>
                 <Routes>
-                    <Route path='/' element={<CourseCatalog/>}></Route>
-                    <Route path='/dashboard' element={<UserDashboard/>}/>
-                    <Route path='/course/:courseID' element={<CourseOverview/>}/>
-                    <Route path='/course/:courseID/lesson/:lessonID' element={<LessonViewer/>}/>
+                    {/* Homepage: Course Grid */}
+                    <Route path='/' element={<CourseCatalog />} />
+                    
+                    {/* Protected-style Dashboard */}
+                    <Route path='/dashboard' element={<UserDashboard />} />
+                    
+                    {/* Course Detail (YouTube style tabs) */}
+                    <Route path='/course/:id' element={<CourseOverview />} />
+                    
+                    {/* Inner Lesson/Quiz Viewer (The 2-column layout) */}
+                    <Route path='/course/:courseId/lesson/:lessonId' element={<LessonViewer />} />
                 </Routes>
             </main>       
-        </>
+        </div>
     );
 }
