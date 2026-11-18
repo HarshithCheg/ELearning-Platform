@@ -1,9 +1,13 @@
 {
+  "homeSettings": {
+    "heroImage": "/7.jpeg" 
+  },
   "courses": [
     {
       "id": "c1",
       "title": "Computer Vision",
       "category": "Artificial Intelligence",
+      "thumbnail":"/1.jpeg",
       "description": "Explore how computers interpret images and video. Start with the foundations of visual data, then learn how image processing and filters prepare images for computer vision tasks.",
       "difficulty": "Advanced",
       "learningOutcomes": [
@@ -69,6 +73,7 @@
       "id": "c2",
       "title": "Database Management System",
       "category": "Databases",
+      "thumbnail":"/image",
       "description": "Learn how relational databases organize information. Practice describing data with entity-relationship models, retrieving records with SQL, and combining related tables.",
       "difficulty": "Intermediate",
       "learningOutcomes": [
@@ -134,6 +139,7 @@
       "id": "c3",
       "title": "Natural Language Processing",
       "category": "Artificial Intelligence",
+      "thumbnail":"/2.jpeg",
       "description": "Discover how software works with human language. Learn foundational text preparation techniques and see how a model can identify the sentiment expressed in text.",
       "difficulty": "Advanced",
       "learningOutcomes": [
@@ -186,6 +192,7 @@
       "id": "c4",
       "title": "Object-Oriented Programming",
       "category": "Programming",
+      "thumbnail":"/3.jpeg",
       "description": "Build a foundation in object-oriented programming. Work with classes and objects, then learn how inheritance, polymorphism, and encapsulation help organize code.",
       "difficulty": "Beginner",
       "learningOutcomes": [
@@ -256,6 +263,7 @@
       "id": "c5",
       "title": "Web Technology Workshop",
       "category": "Web Development",
+      "thumbnail":"/4.jpeg",
       "description": "Follow the building blocks of a web application: structure pages with HTML, style them with CSS, add behavior with JavaScript, and create an API using ExpressJS.",
       "difficulty": "Intermediate",
       "learningOutcomes": [
@@ -332,8 +340,9 @@
     },
     {
       "id": "c6",
-      "title": "React Fundamentals",
-      "category": "Frontend Development",
+      "title": "Business classes",
+      "category": "Business",
+      "thumbnail":"/5.jpeg",
       "description": "Get started with React by building interfaces from components. Learn how props pass information, how state tracks changes, and how effects and routes connect a small application.",
       "difficulty": "Beginner",
       "learningOutcomes": [
