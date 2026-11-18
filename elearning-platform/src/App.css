@@ -95,7 +95,6 @@
   .nav-brand span { color: var(--primary); }
   
   .nav-links { display: flex; gap: 2.5rem; }
-  .nav-toggle { display: none; }
   
   .nav-link {
     text-decoration: none;
@@ -648,56 +647,4 @@
     .course-grid, .grid-layout { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .viewer-container { grid-template-columns: minmax(0, 1fr) 320px; }
     .video-main-column { padding: 28px; }
-  }
-
-  @media (max-width: 850px) {
-    .viewer-container { grid-template-columns: 1fr; }
-    .curriculum-sidebar { height: auto; position: relative; top: auto; border-left: 0; border-top: 1px solid var(--border); }
-    .course-grid, .grid-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .hero-banner-full { height: 300px; }
-  }
-
-  @media (max-width: 600px) {
-    .nav-container { position: relative; }
-    .nav-toggle {
-      display: flex;
-      width: 42px;
-      height: 42px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: white;
-      cursor: pointer;
-    }
-
-    .nav-toggle span { width: 19px; height: 2px; border-radius: 2px; background: var(--primary); }
-    .nav-links {
-      display: none;
-      position: absolute;
-      top: calc(100% + 15px);
-      left: -4.35%;
-      right: -4.35%;
-      flex-direction: column;
-      gap: 0;
-      padding: 0.5rem 4.35% 0.75rem;
-      background: white;
-      border-bottom: 1px solid var(--border);
-      box-shadow: var(--shadow-md);
-    }
-
-    .nav-open .nav-links { display: flex; }
-    .nav-link { padding: 0.7rem 0; }
-    .nav-link + .nav-link { border-top: 1px solid var(--border); }
-    .course-grid, .grid-layout { grid-template-columns: 1fr; }
-    .hero-banner-full { height: 320px; }
-    .course-hero-image { width: 72%; }
-    .hero-overlay { left: 5%; bottom: 24px; max-width: 45%; }
-    .main-content-area { padding: 48px 0; }
-    .video-main-column { padding: 20px 5%; }
-    .video-meta, .quiz-section-viewer { padding: 20px; }
-    .learning-quote-banner { height: 190px; }
-    .performance-section { padding: 1rem; }
   }

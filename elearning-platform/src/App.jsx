@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import { Routes, Route, Link } from 'react-router-dom';
 
@@ -8,30 +7,16 @@ import UserDashboard from './pages/UserDashboard';
 import LessonViewer from './pages/LessonViewer';
 
 export default function App() {
-    const [menuOpen, setMenuOpen] = useState(false);
-
     return (
         <div className="app-shell">
-            <nav className={`navbar ${menuOpen ? 'nav-open' : ''}`}>
+            <nav className="navbar">
                 <div className="nav-container">
-                    <Link to='/' className='nav-brand' onClick={() => setMenuOpen(false)}>
+                    <Link to='/' className='nav-brand'>
                         EduTech <span>Platform</span>
                     </Link>
-                    <button
-                        type="button"
-                        className="nav-toggle"
-                        aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-                        aria-expanded={menuOpen}
-                        aria-controls="primary-navigation"
-                        onClick={() => setMenuOpen(isOpen => !isOpen)}
-                    >
-                        <span />
-                        <span />
-                        <span />
-                    </button>
                     <div className='nav-links' id="primary-navigation">
-                        <Link to="/" className='nav-link' onClick={() => setMenuOpen(false)}>Catalog</Link>
-                        <Link to="/dashboard" className='nav-link' onClick={() => setMenuOpen(false)}>My Dashboard</Link>
+                        <Link to="/" className='nav-link'>Catalog</Link>
+                        <Link to="/dashboard" className='nav-link'>My Dashboard</Link>
                     </div>
                 </div>
             </nav>
