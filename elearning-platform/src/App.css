@@ -1,279 +1,411 @@
-:root {
-  --primary-color: #2563EB;
-  --primary-hover: #1D4ED8;
-  --udemy-dark: #1C1D1F; /* Dark background for Hero */
-  --accent-color: #b4690e; /* Udemy star yellow */
-  --background-color: #F3F8FC;
-  --surface-color: #FFFFFF;
-  --text-main: #172B4D;
-  --text-muted: #6A6F73;
-  --border-color: #D1D7DC;
-}
+/* ==========================================================================
+   1. CORE DESIGN SYSTEM (Brain: Variables & Theme)
+   ========================================================================== */
+   :root {
+    /* Branding Colors */
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --success: #10b981;
+    --success-dark: #059669;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    
+    /* Neutral Palette */
+    --bg-main: #f1f5f9;        /* Soft gray background for depth */
+    --surface: #ffffff;        /* Pure white for cards/layers */
+    --text-main: #0f172a;      /* Slate 900 for high readability */
+    --text-muted: #64748b;     /* Slate 500 for secondary text */
+    --border: #e2e8f0;         /* Slate 200 for clean dividers */
+  
+    /* Elevation (Beauty: Modern Shadows) */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.04), 0 4px 6px -2px rgba(0,0,0,0.02);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08);
+    
+    /* Layout Metrics */
+    --nav-height: 70px;
+    --radius-lg: 40px;
+    --radius-md: 16px;
+  }
+  
+  /* ==========================================================================
+     2. GLOBAL RESET & BASE
+     ========================================================================== */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  .page-container {
+    width: 92%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+  }
+  
+  /* ==========================================================================
+     3. NAVIGATION (Glassmorphism Effect)
+     ========================================================================== */
+  .navbar {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    height: var(--nav-height);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-container {
+    width: 92%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    text-decoration: none;
+    letter-spacing: -1px;
+  }
+  
+  .nav-brand span { color: var(--primary); }
+  
+  .nav-links { display: flex; gap: 2.5rem; }
+  
+  .nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.2s ease;
+  }
+  
+  .nav-link:hover { color: var(--primary); }
+  
+  /* ==========================================================================
+     4. LAYOUT COMPONENTS (Overlapping Curves)
+     ========================================================================== */
+  
+  /* Full-width Hero Container */
+  .hero-banner-full {
+    width: 100%;
+    height: 420px;
+    background: #000;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .full-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.85;
+  }
+  
+  /* Hero Overlay Text */
+  .hero-overlay {
+    position: absolute;
+    bottom: 100px;
+    left: 6%;
+    color: white;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  
+  .hero-overlay h1 { font-size: 3rem; margin-bottom: 10px; }
+  
+  /* The curved overlapping section used in Overview and Catalog */
+  .main-content-area {
+    background-color: var(--bg-main);
+    margin-top: -60px; /* Brain: This creates the overlap */
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+    padding: 60px 0;
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* ==========================================================================
+     5. UDEMY-STYLE GRID & CARDS
+     ========================================================================== */
+  .course-grid, .grid-layout {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  
+  .course-card-udemy {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .course-card-udemy:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+  }
+  
+  .card-thumbnail {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background-color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .course-card-udemy:hover .card-thumbnail img { transform: scale(1.1); }
+  
+  .card-info { padding: 1.5rem; }
+  
+  .card-info h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    /* Truncate long titles to 2 lines */
+    display: -webkit-box;
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: var(--surface-color);
-  color: var(--text-main);
-  line-height: 1.6;
-}
-
-/* --- Navigation --- */
-.navbar {
-  background-color: #fff;
-  padding: 0.8rem 5%;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .card-instructor { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+  
+  /* ==========================================================================
+     6. LESSON VIEWER (Cinema Mode Two-Column)
+     ========================================================================== */
+  .viewer-container {
+    display: grid;
+    grid-template-columns: 1fr 380px; /* Main Area vs Sidebar */
+    min-height: 100vh;
+    gap: 0;
+  }
+  
+  .video-main-column {
+    padding: 40px;
+    background: var(--bg-main);
+    overflow-y: auto;
+  }
+  /* Fix the ugly vertical text tabs into a horizontal row */
+.view-tabs-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  gap: 15px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px;
 }
 
-.nav-brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: #1c1d1f;
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-
-/* --- Broad Hero Panel (Udemy Style) --- */
-.hero-banner {
-  background-color: var(--udemy-dark);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 60px 10%;
-  margin-bottom: 40px;
-  gap: 40px;
-}
-
-.hero-content {
-  flex: 1.2;
-}
-
-.hero-content h1 {
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
-  line-height: 1.1;
-}
-
-.hero-content p {
-  font-size: 1.2rem;
-  line-height: 1.4;
-  margin-bottom: 2rem;
-  opacity: 0.9;
-}
-
-.btn-hero {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 12px 24px;
+.tab-item {
+  background: none;
   border: none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
   font-weight: 700;
+  color: var(--text-muted);
   cursor: pointer;
-  border-radius: 4px;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
 }
 
-.hero-image-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+.tab-item.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
 }
 
-.hero-image-container img {
-  width: 100%;
-  max-width: 480px;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-/* --- Main Layout --- */
-.page-container {
-  width: 90%;
-  max-width: 1340px;
-  margin: 0 auto;
-  padding: 0 0 4rem 0;
-}
-
-.section-title {
-  margin-bottom: 1.5rem;
-}
-
-.section-title h2 {
-  font-size: 1.8rem;
-  margin-bottom: 0.3rem;
-}
-
-/* --- Course Grid (Udemy Style) --- */
-.course-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns for landscape cards */
-  gap: 1.5rem;
-}
-
-.course-card-udemy {
-  text-decoration: none;
-  color: inherit;
+/* Force "Watch Now" buttons to be visible and styled nicely */
+.btn-primary-visible {
   display: block;
-  transition: transform 0.2s ease;
-}
-
-.course-card-udemy:hover {
-  transform: translateY(-2px);
-}
-
-.card-thumbnail {
   width: 100%;
-  aspect-ratio: 16 / 9; /* Landscape */
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.card-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card-info h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 4px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Truncates long titles */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.card-instructor {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.card-rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--accent-color);
-  margin-bottom: 4px;
-}
-
-.card-rating span {
-  color: var(--text-muted);
-  font-weight: 400;
-}
-
-.card-meta {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 400;
-}
-
-/* --- Dashboard & Performance Section --- */
-.performance-section {
-  margin-top: 1.5rem;
-  padding: 2rem;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  background-color: #fff;
-}
-
-.performance-summary {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.performance-card {
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
+  text-align: center;
+  background-color: var(--primary);
+  color: white;
+  padding: 12px;
   border-radius: 8px;
-  background: var(--background-color);
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 15px;
+  transition: background 0.2s;
 }
 
-.performance-card strong {
-  font-size: 2rem;
-  color: var(--primary-color);
+.btn-primary-visible:hover {
+  background-color: var(--primary-hover);
 }
 
-.performance-charts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.performance-chart {
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-}
-
-.chart-track {
-  height: 8px;
-  background: #E8F0F6;
-  border-radius: 10px;
-  margin-top: 5px;
+/* Fix the card info padding for the course overview page */
+.video-item {
+  background: white;
+  padding-bottom: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
   overflow: hidden;
 }
 
-.chart-fill {
-  height: 100%;
-  background: var(--primary-color);
+.video-info {
+  padding: 15px 20px;
 }
 
-/* --- Video & Lessons --- */
-.video-player {
-  width: 100%;
-  aspect-ratio: 16 / 9;
+/* Ensure the video player container has height */
+.video-wrapper {
+  min-height: 400px;
   background: #000;
-  border-radius: 8px;
-  overflow: hidden;
 }
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 1100px) {
-  .course-grid { grid-template-columns: repeat(3, 1fr); }
-  .hero-banner { padding: 40px 5%; }
-}
-
-@media (max-width: 768px) {
-  .hero-banner { flex-direction: column; text-align: center; }
-  .hero-image-container { order: -1; }
-  .course-grid { grid-template-columns: repeat(2, 1fr); }
-  .performance-summary, .performance-charts { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 480px) {
-  .course-grid { grid-template-columns: 1fr; }
-  .hero-content h1 { font-size: 1.8rem; }
-}
+  .video-wrapper {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .video-meta {
+    margin-top: 25px;
+    padding: 30px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+  }
+  
+  /* Sidebar & Playlist */
+  .curriculum-sidebar {
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+  }
+  
+  .sidebar-head { padding: 25px; font-weight: 800; border-bottom: 1px solid var(--border); background: #fafafa; }
+  
+  .lesson-row {
+    display: flex; gap: 15px; padding: 18px 25px; text-decoration: none; 
+    color: var(--text-main); border-bottom: 1px solid #f8f8f8; transition: 0.2s;
+  }
+  
+  .lesson-row:hover { background: var(--bg-main); }
+  .lesson-row.active { background: #eff6ff; border-left: 5px solid var(--primary); font-weight: 700; }
+  .lesson-row .num { width: 30px; opacity: 0.4; font-weight: 900; }
+  
+  /* ==========================================================================
+     7. INTERACTIVE QUIZ UI
+     ========================================================================== */
+  .quiz-section-viewer {
+    margin-top: 30px;
+    padding: 40px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--success);
+  }
+  
+  .btn-success {
+    background: var(--success);
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    width: 100%;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-success:hover:not(:disabled) { background: var(--success-dark); }
+  .btn-success:disabled { opacity: 0.5; cursor: not-allowed; }
+  
+  /* ==========================================================================
+     8. UTILITIES & PRESENTATION
+     ========================================================================== */
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.2s;
+  }
+  
+  .tech-tag {
+    display: inline-block;
+    background: #fef9c3;
+    color: #854d0e;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border-left: 5px solid var(--warning);
+    margin-top: 15px;
+  }
+  
+  .loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  
+  /* ==========================================================================
+     9. RESPONSIVE QUERIES
+     ========================================================================== */
+  @media (max-width: 1200px) {
+    .course-grid, .grid-layout { grid-template-columns: repeat(3, 1fr); }
+    .viewer-container { grid-template-columns: 1fr; }
+    .curriculum-sidebar { height: auto; position: relative; }
+  }
+  
+  @media (max-width: 768px) {
+    .course-grid, .grid-layout { grid-template-columns: repeat(2, 1fr); }
+    .hero-banner-full { height: 300px; }
+    .nav-links { display: none; }
+  }
+  
+  @media (max-width: 480px) {
+    .course-grid, .grid-layout { grid-template-columns: 1fr; }
+  }
