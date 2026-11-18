@@ -5,17 +5,23 @@ export default function CourseCard({ course }) {
         <div className='course-card-udemy'>
             <Link to={`/course/${course.id}`} className="card-link">
                 <div className='card-thumbnail'>
-                    <img src={course.thumbnail || 'https://placehold.co/600x400/2563EB/white?text=Course'} alt={course.title} />
+                    <img
+                        src={course.thumbnail || '/7.jpeg'}
+                        alt=""
+                        onError={event => {
+                            event.currentTarget.src = '/7.jpeg';
+                        }}
+                    />
                 </div>
                 
                 <div className='card-info'>
                     <h3 className="card-title">{course.title}</h3>
-                    <p className="card-instructor">{course.instructor}</p>
                     <div className="card-meta">
-                        <span className="rating">4.6 ★★★★☆</span>
-                        <span className="lessons">({course.lessons?.length} lessons)</span>
+                        <span>{course.lessons?.length || 0} lessons</span>
+                        <span>{course.difficulty}</span>
                     </div>
-                    <p className="card-category">{course.category} • {course.difficulty}</p>
+                    <p className="card-category">{course.category}</p>
+                    <span className="course-card-action">View course <span aria-hidden="true">→</span></span>
                 </div>
             </Link>
         </div>
