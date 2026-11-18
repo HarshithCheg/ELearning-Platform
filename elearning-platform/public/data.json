@@ -73,7 +73,7 @@
       "id": "c2",
       "title": "Database Management System",
       "category": "Databases",
-      "thumbnail":"/8.png",
+      "thumbnail":"/8.jpg",
       "description": "Learn how relational databases organize information. Practice describing data with entity-relationship models, retrieving records with SQL, and combining related tables.",
       "difficulty": "Intermediate",
       "learningOutcomes": [
